@@ -11,8 +11,3 @@ request = '''
   FROM SYSIBMADM.TBSP_UTILIZATION 
   GROUP BY tbsp_name, tbsp_content_type;
 '''
-
-[[metric]]
-context = "up"
-metricsdesc = { up = "DB2 is up." }
-request = "SELECT 1 as up FROM SYSIBM.SYSDUMMY1"
