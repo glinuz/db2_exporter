@@ -1,6 +1,8 @@
 # IBM DB2 exporter 
 
-A Prometheus exporter for IBM DB2
+A Prometheus exporter for IBM DB2. 
+
+Consult https://github.com/iamseth/oracledb_exporter
 
 ## Description
 The following metrics are exposed currently.
@@ -15,7 +17,7 @@ The following metrics are exposed currently.
 
 ## Build
 
-Use DB2 instance,db2inst1, in your database server HOME.
+Use DB2 instance,db2inst1, in your database server HOME directory.
 ```
 IBM_DB_DIR=/home/db2inst1/sqllib
 export CGO_LDFLAGS=-L$IBM_DB_DIR/lib
@@ -25,7 +27,7 @@ go build main.go
 
 ## Runing
 
-Maybe need set export LD_LIBRARY_PATH ,check your system env
+Maybe need set export LD_LIBRARY_PATH ,check your system ENV
 ```
 export LD_LIBRARY_PATH=$DB2_HOME/lib:$LD_LIBRARY_PATH
 ```
@@ -36,3 +38,6 @@ Running on port 9161
 export DB2_DSN="DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
 ./main 
 ```
+
+## Howto custerm metric
+Add your custerm metric ,database monitor SQL script in file: default-metrics.toml.
