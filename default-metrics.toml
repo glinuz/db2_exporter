@@ -1,0 +1,18 @@
+[[metric]]
+context = "tablespace"
+labels = [ "tablespace", "type" ]
+metricsdesc = { total_mb = "Generic counter metric of tablespaces total space MB in DB2.", uesd_mb = "Generic counter metric of tablespaces used space MB in DB2.", free_mb = "Generic counter metric of tablespaces free space MB in DB2." }
+request = '''
+  SELECT substr(tbsp_name,1,20) as TABLESPACE, 
+         substr(tbsp_content_type,1,10) as TYPE, 
+         sum(tbsp_total_size_kb)/1024 as TOTAL_MB, 
+         sum(tbsp_used_size_kb)/1024 as USED_MB, 
+         sum(tbsp_free_size_kb)/1024 as FREE_MB 
+  FROM SYSIBMADM.TBSP_UTILIZATION 
+  GROUP BY tbsp_name, tbsp_content_type;
+'''
+
+[[metric]]
+context = "up"
+metricsdesc = { up = "DB2 is up." }
+request = "SELECT 1 as up FROM SYSIBM.SYSDUMMY1"
