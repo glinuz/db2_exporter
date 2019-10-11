@@ -2,8 +2,6 @@
 
 A Prometheus exporter for IBM DB2. 
 
-Consult https://github.com/iamseth/oracledb_exporter
-
 ## Description
 The following metrics are exposed currently.
 
