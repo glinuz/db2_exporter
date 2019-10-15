@@ -217,10 +217,19 @@ func ScrapeGenericValues(db *sql.DB, ch chan<- prometheus.Metric, context string
 		for _, label := range labels {
 			labelsValues = append(labelsValues, row[label])
 		}
+		//debug
+
+		//fmt.Println("label-debug", labelsValues)
+		log.Debugln("label-debug", labelsValues)
 		// Construct Prometheus values to sent back
 		for metric, metricHelp := range metricsDesc {
 			metric = strings.ToLower(metric)
 			value, err := strconv.ParseFloat(strings.TrimSpace(row[metric]), 64)
+
+			//debug
+			//fmt.Println("metric-debug", metric, ":", value)
+			log.Debugln("metric-debug", metric, ":", value)
+
 			// If not a float, skip current metric
 			if err != nil {
 				continue
@@ -304,6 +313,8 @@ func GeneratePrometheusMetrics(db *sql.DB, parse func(row map[string]string) err
 			}
 		}
 
+		// fmt.Println(m)
+		log.Debugln(m)
 		// Call function to parse row
 		if err := parse(m); err != nil {
 			return err
@@ -330,9 +341,9 @@ func main() {
 	dsn := *db2dsn
 	if dsn == "" {
 		dsn = "DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
-		log.Infoln("With default connection. To change it set ENV DB2_DSN=" + "\"DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1\"")
+		log.Infoln("With default DSN config. To change it set ENV DB2_DSN or -dsn flag.")
 	}
-
+	log.Infoln("Running with DB2_DSN=", dsn)
 	// Load default metrics
 	if _, err := toml.DecodeFile(*defaultFileMetrics, &metricsToScrap); err != nil {
 		log.Errorln(err)
