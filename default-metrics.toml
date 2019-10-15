@@ -1,13 +1,78 @@
 [[metric]]
+context = "version"
+labels = [ "service_level" ]
+metricsdesc = { value = "DB2 version." }
+request = "SELECT SERVICE_LEVEL, 1 as value FROM SYSIBMADM.ENV_INST_INFO;"
+
+[[metric]]
+context = "db"
+labels = [ "dbname" ]
+metricsdesc = { value = "DB2 databaes name." }
+request = "select current server as dbname, 1 as value from sysibm.sysdummy1;"
+
+#[[metric]]
+#context = "errormsg"
+#labels = [ "dbname" ]
+#metricsdesc = { timestamp = "timestamp", msg = "DB2 error message." }
+#request = "SELECT dbname, timestamp, SUBSTR(MSG,1,100) AS MSG FROM SYSIBMADM.PDLOGMSGS_LAST24HOURS WHERE msgseverity = 'C' or msgseverity = 'E' ORDER BY TIMESTAMP DESC;"
+
+[[metric]]
 context = "tablespace"
-labels = [ "tablespace", "type" ]
-metricsdesc = { total_mb = "Generic counter metric of tablespaces total space MB in DB2.", uesd_mb = "Generic counter metric of tablespaces used space MB in DB2.", free_mb = "Generic counter metric of tablespaces free space MB in DB2." }
+labels = [ "tablespace", "type", "page_size" ]
+metricsdesc = { total_mb = "Tablespaces total space MB.", state = "Tablespaces state.", uesd_mb = "Tablespaces used space MB.", free_mb = "Tablespaces free space MB." }
 request = '''
   SELECT substr(tbsp_name,1,20) as TABLESPACE, 
          substr(tbsp_content_type,1,10) as TYPE, 
          sum(tbsp_total_size_kb)/1024 as TOTAL_MB, 
          sum(tbsp_used_size_kb)/1024 as USED_MB, 
-         sum(tbsp_free_size_kb)/1024 as FREE_MB 
+         sum(tbsp_free_size_kb)/1024 as FREE_MB,
+         substr(TBSP_STATE,1,10) as state,
+         tbsp_page_size AS PAGE_SIZE
   FROM SYSIBMADM.TBSP_UTILIZATION 
-  GROUP BY tbsp_name, tbsp_content_type;
+  GROUP BY tbsp_name, tbsp_content_type,tbsp_page_size,TBSP_STATE;
 '''
+
+[[metric]]
+context = "bufferpool"
+labels = [ "bp_name"]
+metricsdesc = { total_hit_ratio = "DB2 bufferpools TOTAL_HIT_RATIO_PERCENT.", bp_size_mb = "DB2 bufferpools size MB.", idx_hit_ratio = "DB2 bufferpools INDEX_HIT_RATIO_PERCENT." }
+request = '''
+  SELECT SUBSTR(A.BP_NAME,1,20) AS BP_NAME,
+      A.TOTAL_HIT_RATIO_PERCENT AS TOTAL_HIT_RATIO,
+      A.INDEX_HIT_RATIO_PERCENT AS INDEX_HIT_RATIO,
+      (B.BP_CUR_BUFFSZ * c.PAGESIZE )/1048576 as BP_SIZE_MB 
+  FROM SYSIBMADM.BP_HITRATIO A, SYSIBMADM.SNAPBP_PART B, syscat.bufferpools C  WHERE a.bp_name = b.bp_name and b.bp_name = c.bpname;
+'''
+
+# [[metric]]
+# context = "deadlock"
+# labels = [ "table", "mode", "ipaddr", "application",]
+# metricsdesc = { req_application_handle = "DB2 deadlick REQ_APPLICATION_HANDLE.", hld_application_handle = "DB2 deadlock HLD_APPLICATION_HANDLE." }
+# request = '''
+#   select A.TABSCHEMA||'.'||A.TABNAME as TABLE,
+#     a.LOCK_MODE AS MODE,
+#     APPLICATION_ID as ipaddr,
+#     a.REQ_APPLICATION_NAME AS APPLICATION,
+#     A.REQ_APPLICATION_HANDLE AS REQ_APPLICATION_HANDLE,
+#     a.LOCK_WAIT_ELAPSED_TIME AS LOCK_WAIT_ELAPSED_TIME,
+#     A.HLD_APPLICATION_HANDLE AS HLD_APPLICATION_HANDLE
+#   from sysibmadm.MON_LOCKWAITS A inner join sysibmadm.MON_LOCKWAITS C on A.REQ_APPLICATION_HANDLE =C.HLD_APPLICATION_HANDLE and A.HLD_APPLICATION_HANDLE= C.REQ_APPLICATION_HANDLE join sysibmadm.MON_CONNECTION_SUMMARY B on A.REQ_APPLICATION_HANDLE = B.APPLICATION_HANDLE  
+#   order by a.LOCK_WAIT_ELAPSED_TIME, HLD_APPLICATION_HANDLE asc fetch first 50 rows only;
+# '''
+
+# [[metric]]
+# context = "snapshot"
+# labels = [ "dbname", "dbpartnum", "state"]
+# metricsdesc = { progress_work_metric = "PROGRESS_WORK_METRIC.", percent_seq_complete = "PERCENT_SEQ_COMPLETE.", progress_completed_units = "progress_completed_units.", progress_total_units = "PROGRESS_TOTAL_UNITS."  }
+# request = '''
+#   SELECT u1.UTILITY_DBNAME AS DBNAME,
+#        u1.DBPARTITIONNUM AS DBPARTNUM,
+#        u2.UTILITY_STATE AS STATE,
+#        u2.PROGRESS_WORK_METRIC AS PROGRESS_WORK_METRIC ,
+#        u2.PROGRESS_COMPLETED_UNITS AS PROGRESS_COMPLETED_UNITS,
+#        u2.PROGRESS_TOTAL_UNITS AS PROGRESS_TOTAL_UNITS,
+#        DEC( ( FLOAT( u2.PROGRESS_COMPLETED_UNITS ) / FLOAT( u2.PROGRESS_TOTAL_UNITS ) ) * 100, 4, 2 ) AS PERCENT_SEQ_COMPLETE
+#   FROM SYSIBMADM.SNAPUTIL as u1, SYSIBMADM.SNAPUTIL_PROGRESS as u2
+#   WHERE u1.UTILITY_ID = u2.UTILITY_ID and u1.DBPARTITIONNUM = u2.DBPARTITIONNUM
+#   ORDER BY u1.UTILITY_DBNAME, u1.DBPARTITIONNUM, u2.PROGRESS_SEQ_NUM;
+# '''
