@@ -37,7 +37,7 @@ The following metrics are exposed currently by default-metrics.toml.
 
 ## Build
 
-Use DB2 instance,db2inst1, in your database server HOME directory.
+Use DB2 instance,like db2inst1, in your database server HOME directory.
 
 ```bash
 IBM_DB_DIR=/home/db2inst1/sqllib
@@ -46,9 +46,9 @@ export CGO_CFLAGS=-I$IBM_DB_DIR/include
 go build main.go
 ```
 
-## Runing
+## Run
 
-Maybe need set export LD_LIBRARY_PATH ,check your system ENV
+Maybe need set export LD_LIBRARY_PATH ,check your system ENV.
 
 ```bash
 export LD_LIBRARY_PATH=$DB2_HOME/lib:$LD_LIBRARY_PATH
@@ -61,6 +61,11 @@ Running on port 9161
 ```bash
 export DB2_DSN="DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
 ./main
+```
+OR
+
+```bash
+./main -log.level debug -dsn "DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
 ```
 
 ## Howto custerm metric
