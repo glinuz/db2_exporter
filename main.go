@@ -269,7 +269,6 @@ func GeneratePrometheusMetrics(db *sql.DB, parse func(row map[string]string) err
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Second)
 	defer cancel()
 	rows, err := db.QueryContext(ctx, query)
-	//rows, err := db.Query(query)
 
 	if ctx.Err() == context.DeadlineExceeded {
 		return errors.New("DB2 query timed out")
@@ -299,12 +298,6 @@ func GeneratePrometheusMetrics(db *sql.DB, parse func(row map[string]string) err
 		// Create our map, and retrieve the value for each column from the pointers slice,
 		// storing it in the map with the name of the column as the key.
 		m := make(map[string]string)
-		/*
-			for i, colName := range cols {
-				val := columnPointers[i].(*interface{})
-				m[strings.ToLower(colName)] = (*val).(string)
-			}
-		*/
 		for i, val := range columns {
 			if m[strings.ToLower(cols[i])] = string(val); val == nil {
 				m[strings.ToLower(cols[i])] = "NULL"
