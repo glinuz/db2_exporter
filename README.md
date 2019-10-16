@@ -71,3 +71,5 @@ OR
 ## Howto custerm metric
 
 Add your custerm metric ,database monitor SQL script in file: default-metrics.toml.
+
+![DB2 export](https://github.com/glinuz/ibmdb2_exporter/blob/master/ibmdb2.png)
