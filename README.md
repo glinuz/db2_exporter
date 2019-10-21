@@ -9,38 +9,55 @@ The following metrics are exposed currently by default-metrics.toml.
     # HELP ibmdb2_bufferpool_bp_size_mb DB2 bufferpools size MB.
     # TYPE ibmdb2_bufferpool_bp_size_mb gauge
     ibmdb2_bufferpool_bp_size_mb{bp_name="IBMDEFAULTBP        "} 7
-    # HELP ibmdb2_db_value DB2 databaes name.
-    # TYPE ibmdb2_db_value gauge
-    ibmdb2_db_value{dbname="SAMPLE"} 1
+    # HELP ibmdb2_db_name_value DB2 name.
+    # TYPE ibmdb2_db_name_value gauge
+    ibmdb2_db_name_value{server="SAMPLE"} 1
+    # HELP ibmdb2_db_version_value DB2 version.
+    # TYPE ibmdb2_db_version_value gauge
+    ibmdb2_db_version_value{service_level="DB2 v10.5.0.6"} 1
+    # HELP ibmdb2_exporter_last_scrape_duration_seconds Duration of the last scrape of metrics from IBM DB2.
+    # TYPE ibmdb2_exporter_last_scrape_duration_seconds gauge
+    ibmdb2_exporter_last_scrape_duration_seconds 0.013067445
+    # HELP ibmdb2_exporter_last_scrape_error Whether the last scrape of metrics from IBM DB2 resulted in an error (1 for error, 0 for success).
+    # TYPE ibmdb2_exporter_last_scrape_error gauge
+    ibmdb2_exporter_last_scrape_error 0
+    # HELP ibmdb2_exporter_scrapes_total Total number of times IBM DB2 was scraped for metrics.
+    # TYPE ibmdb2_exporter_scrapes_total counter
+    ibmdb2_exporter_scrapes_total 2
     # HELP ibmdb2_tablespace_free_mb Tablespaces free space MB.
     # TYPE ibmdb2_tablespace_free_mb gauge
-    ibmdb2_tablespace_free_mb{page_size="8192",tablespace="IBMDB2SAMPLEREL     ",type="LARGE     "} 27
-    ibmdb2_tablespace_free_mb{page_size="8192",tablespace="IBMDB2SAMPLEXML     ",type="LARGE     "} 20
-    ibmdb2_tablespace_free_mb{page_size="8192",tablespace="SYSCATSPACE         ",type="ANY       "} 4
-    ibmdb2_tablespace_free_mb{page_size="8192",tablespace="SYSTOOLSPACE        ",type="LARGE     "} 31
-    ibmdb2_tablespace_free_mb{page_size="8192",tablespace="TEMPSPACE1          ",type="SYSTEMP   "} 0
-    ibmdb2_tablespace_free_mb{page_size="8192",tablespace="USERSPACE1          ",type="LARGE     "} 17
+    ibmdb2_tablespace_free_mb{page_size="8192",state="NORMAL    ",tablespace="IBMDB2SAMPLEREL     ",type="LARGE     "} 27
+    ibmdb2_tablespace_free_mb{page_size="8192",state="NORMAL    ",tablespace="IBMDB2SAMPLEXML     ",type="LARGE     "} 20
+    ibmdb2_tablespace_free_mb{page_size="8192",state="NORMAL    ",tablespace="SYSCATSPACE         ",type="ANY       "} 4
+    ibmdb2_tablespace_free_mb{page_size="8192",state="NORMAL    ",tablespace="SYSTOOLSPACE        ",type="LARGE     "} 31
+    ibmdb2_tablespace_free_mb{page_size="8192",state="NORMAL    ",tablespace="TEMPSPACE1          ",type="SYSTEMP   "} 0
+    ibmdb2_tablespace_free_mb{page_size="8192",state="NORMAL    ",tablespace="USERSPACE1          ",type="LARGE     "} 17
     # HELP ibmdb2_tablespace_total_mb Tablespaces total space MB.
     # TYPE ibmdb2_tablespace_total_mb gauge
-    ibmdb2_tablespace_total_mb{page_size="8192",tablespace="IBMDB2SAMPLEREL     ",type="LARGE     "} 32
-    ibmdb2_tablespace_total_mb{page_size="8192",tablespace="IBMDB2SAMPLEXML     ",type="LARGE     "} 32
-    ibmdb2_tablespace_total_mb{page_size="8192",tablespace="SYSCATSPACE         ",type="ANY       "} 128
-    ibmdb2_tablespace_total_mb{page_size="8192",tablespace="SYSTOOLSPACE        ",type="LARGE     "} 32
-    ibmdb2_tablespace_total_mb{page_size="8192",tablespace="TEMPSPACE1          ",type="SYSTEMP   "} 0
-    ibmdb2_tablespace_total_mb{page_size="8192",tablespace="USERSPACE1          ",type="LARGE     "} 32
+    ibmdb2_tablespace_total_mb{page_size="8192",state="NORMAL    ",tablespace="IBMDB2SAMPLEREL     ",type="LARGE     "} 32
+    ibmdb2_tablespace_total_mb{page_size="8192",state="NORMAL    ",tablespace="IBMDB2SAMPLEXML     ",type="LARGE     "} 32
+    ibmdb2_tablespace_total_mb{page_size="8192",state="NORMAL    ",tablespace="SYSCATSPACE         ",type="ANY       "} 128
+    ibmdb2_tablespace_total_mb{page_size="8192",state="NORMAL    ",tablespace="SYSTOOLSPACE        ",type="LARGE     "} 32
+    ibmdb2_tablespace_total_mb{page_size="8192",state="NORMAL    ",tablespace="TEMPSPACE1          ",type="SYSTEMP   "} 0
+    ibmdb2_tablespace_total_mb{page_size="8192",state="NORMAL    ",tablespace="USERSPACE1          ",type="LARGE     "} 32
+    # HELP ibmdb2_tablespace_used_mb Tablespaces used space MB.
+    # TYPE ibmdb2_tablespace_used_mb gauge
+    ibmdb2_tablespace_used_mb{page_size="8192",state="NORMAL    ",tablespace="IBMDB2SAMPLEREL     ",type="LARGE     "} 4
+    ibmdb2_tablespace_used_mb{page_size="8192",state="NORMAL    ",tablespace="IBMDB2SAMPLEXML     ",type="LARGE     "} 11
+    ibmdb2_tablespace_used_mb{page_size="8192",state="NORMAL    ",tablespace="SYSCATSPACE         ",type="ANY       "} 123
+    ibmdb2_tablespace_used_mb{page_size="8192",state="NORMAL    ",tablespace="SYSTOOLSPACE        ",type="LARGE     "} 0
+    ibmdb2_tablespace_used_mb{page_size="8192",state="NORMAL    ",tablespace="TEMPSPACE1          ",type="SYSTEMP   "} 0
+    ibmdb2_tablespace_used_mb{page_size="8192",state="NORMAL    ",tablespace="USERSPACE1          ",type="LARGE     "} 14
     # HELP ibmdb2_up Whether the IBM DB2 database server is up.
     # TYPE ibmdb2_up gauge
     ibmdb2_up 1
-    # HELP ibmdb2_version_value DB2 version.
-    # TYPE ibmdb2_version_value gauge
-    ibmdb2_version_value{service_level="DB2 v10.5.0.6"} 1
 
 ## Build
 
 Use DB2 instance,like db2inst1, in your database server HOME directory.
 
 ```bash
-IBM_DB_DIR=/home/db2inst1/sqllib
+export IBM_DB_DIR=/home/db2inst1/sqllib
 export CGO_LDFLAGS=-L$IBM_DB_DIR/lib
 export CGO_CFLAGS=-I$IBM_DB_DIR/include
 go build main.go

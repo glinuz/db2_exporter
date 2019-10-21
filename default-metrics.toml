@@ -1,4 +1,4 @@
-#prometheus 只能采集数值型数据，所以将数据库版本、名称增字符串值放出label中。
+#prometheus只采集数值类型数据，所以将数据库版本、名称等字符串类型值放入label中。
 [[metric]]
 context = "db_version"
 labels = [ "service_level" ]
