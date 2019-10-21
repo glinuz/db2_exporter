@@ -9,7 +9,7 @@ request = "SELECT SERVICE_LEVEL, 1 as value FROM SYSIBMADM.ENV_INST_INFO;"
 [[metric]]
 context = "db_name"
 labels = [ "server" ]
-metricsdesc = { value = "DB2 name." }
+metricsdesc = { value = "database name." }
 request = "select current server as server, 1 as value from sysibm.sysdummy1;"
 
 [[metric]]
