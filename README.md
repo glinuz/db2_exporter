@@ -68,6 +68,10 @@ OR
 ./main -log.level debug -dsn "DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
 ```
 
+## Zabbix template
+In our case,it is worked with Prometheus or Zabbix. 
+Import db2export_zabbix_templates.xml, and define Host macro {$URL} endpoint,e.g. http://localhost:9161/metrics
+
 ## Howto custerm metric
 
 Add your custerm metric ,database monitor SQL script in file: default-metrics.toml.

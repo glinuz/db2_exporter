@@ -19,7 +19,7 @@ import (
 
 var (
 	// Version will be set at build time.
-	Version            = "0.0.1.dev"
+	Version            = "0.2.dev"
 	listenAddress      = flag.String("web.listen-address", ":9161", "Address to listen on for web interface and telemetry.")
 	metricPath         = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
 	landingPage        = []byte("<html><head><title>IBM DB2 Exporter " + Version + "</title></head><body><h1>IBM DB2 Exporter " + Version + "</h1><p><a href='" + *metricPath + "'>Metrics</a></p></body></html>")
