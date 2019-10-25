@@ -220,15 +220,15 @@ func ScrapeGenericValues(db *sql.DB, ch chan<- prometheus.Metric, context string
 		//debug
 
 		//fmt.Println("label-debug", labelsValues)
-		log.Debugln("label-debug", labelsValues)
+		log.Debugln("label:", labelsValues)
 		// Construct Prometheus values to sent back
 		for metric, metricHelp := range metricsDesc {
 			metric = strings.ToLower(metric)
 			value, err := strconv.ParseFloat(strings.TrimSpace(row[metric]), 64)
 
 			//debug
-			//fmt.Println("metric-debug", metric, ":", value)
-			log.Debugln("metric-debug", metric, ":", value)
+			//fmt.Println("metric-debug", metric, " ", value)
+			log.Debugln("metric:", metric, " ", value)
 
 			// If not a float, skip current metric
 			if err != nil {
