@@ -1,0 +1,22 @@
+groups:
+  - name: db2-record
+    rules:
+    - expr: (ibmdb2_tablespace_free_mb / ibmdb2_tablespace_total_mb)* 100
+      record: ibmdb2_tablespace_free_percent
+      labels: 
+        desc: "表空间剩余百分比"
+        unit: "%"
+        job: "db2"
+
+  - name: db2-alert
+    rules:
+    - alert: DB2Down
+      expr: ibmdb2_up{job="db2"} != 1
+      for: 5m
+      labels:
+        severity: High
+    - alert: TablespaceFreeLow
+      expr: ibmdb2_tablespace_free_percent{job='db2'} < 10
+      for: 2m
+      labels:
+        severity: Warning
