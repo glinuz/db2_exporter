@@ -8,7 +8,15 @@ The following metrics are exposed currently by default-metrics.toml.
 
     # HELP ibmdb2_bufferpool_bp_size_mb DB2 bufferpools size MB.
     # TYPE ibmdb2_bufferpool_bp_size_mb gauge
-    ibmdb2_bufferpool_bp_size_mb{bp_name="IBMDEFAULTBP        "} 7
+    ibmdb2_bufferpool_bp_size_mb{bp_name="BUFF16              "} 300
+    ibmdb2_bufferpool_bp_size_mb{bp_name="IBMDEFAULTBP        "} 800
+    # HELP ibmdb2_bufferpool_idx_hit_ratio DB2 bufferpools INDEX_HIT_RATIO_PERCENT.
+    # TYPE ibmdb2_bufferpool_idx_hit_ratio gauge
+    ibmdb2_bufferpool_idx_hit_ratio{bp_name="IBMDEFAULTBP        "} 100
+    # HELP ibmdb2_bufferpool_total_hit_ratio DB2 bufferpools TOTAL_HIT_RATIO_PERCENT.
+    # TYPE ibmdb2_bufferpool_total_hit_ratio gauge
+    ibmdb2_bufferpool_total_hit_ratio{bp_name="BUFF16              "} 100
+    ibmdb2_bufferpool_total_hit_ratio{bp_name="IBMDEFAULTBP        "} 100
     # HELP ibmdb2_db_name_value DB2 name.
     # TYPE ibmdb2_db_name_value gauge
     ibmdb2_db_name_value{server="SAMPLE"} 1
@@ -64,8 +72,14 @@ go build main.go
 ```
 
 ## Run
+Switch monitor buffpool on
 
-Maybe need set export LD_LIBRARY_PATH ,check your system ENV.
+```bash
+db2 update monitor switches using bufferpool on
+db2 update dbm cfg using DFT_MON_BUFPOOL on
+```
+
+Set export LD_LIBRARY_PATH ,check your system ENV.
 
 ```bash
 export LD_LIBRARY_PATH=$DB2_HOME/lib:$LD_LIBRARY_PATH
@@ -86,7 +100,7 @@ OR
 ```
 
 ## Zabbix template
-In our case,it is worked with Prometheus or Zabbix. 
+In our case,it is worked with Prometheus and Zabbix. 
 Import db2export_zabbix_templates.xml, and define Host macro {$URL} endpoint,e.g. http://localhost:9161/metrics
 
 ## Howto custerm metric
