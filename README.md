@@ -6,6 +6,7 @@ A Prometheus exporter for IBM DB2.
 
 The following metrics are exposed currently by default-metrics.toml.
 
+```html
     # HELP ibmdb2_bufferpool_bp_size_mb DB2 bufferpools size MB.
     # TYPE ibmdb2_bufferpool_bp_size_mb gauge
     ibmdb2_bufferpool_bp_size_mb{bp_name="BUFF16              "} 300
@@ -59,6 +60,7 @@ The following metrics are exposed currently by default-metrics.toml.
     # HELP ibmdb2_up Whether the IBM DB2 database server is up.
     # TYPE ibmdb2_up gauge
     ibmdb2_up 1
+```
 
 ## Build
 
@@ -72,6 +74,7 @@ go build main.go
 ```
 
 ## Run
+
 Switch monitor buffpool on
 
 ```bash
@@ -93,6 +96,7 @@ Running on port 9161
 export DB2_DSN="DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
 ./main
 ```
+
 OR
 
 ```bash
@@ -100,8 +104,9 @@ OR
 ```
 
 ## Zabbix template
-In our case,it is worked with Prometheus and Zabbix. 
-Import db2export_zabbix_templates.xml, and define Host macro {$URL} endpoint,e.g. http://localhost:9161/metrics
+
+In our case,it is worked with Prometheus and Zabbix.
+Import db2export_zabbix_templates.xml, and define Host macro {$URL} endpoint,e.g. <http://localhost:9161/metrics>
 
 ## Howto custerm metric
 
