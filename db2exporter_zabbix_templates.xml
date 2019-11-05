@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.2</version>
-    <date>2019-10-21T08:19:09Z</date>
+    <date>2019-11-04T09:25:27Z</date>
     <groups>
         <group>
             <name>Templates/Databases</name>
@@ -142,7 +142,7 @@
             </items>
             <discovery_rules>
                 <discovery_rule>
-                    <name>bufferpool</name>
+                    <name>Bufferpools</name>
                     <type>18</type>
                     <snmp_community/>
                     <snmp_oid/>
@@ -174,6 +174,72 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
+                            <name>bufferpool {#BP_NAME} index hit ratio</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>prom_db2_buf_idx_hit[{#BP_NAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>22</type>
+                                    <params>ibmdb2_bufferpool_idx_hit_ratio{bp_name=&quot;{#BP_NAME}&quot;}
+</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item>
+                                <key>prom_db2_exporter</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
                             <name>bufferpool {#BP_NAME} size(MB)</name>
                             <type>18</type>
                             <snmp_community/>
@@ -183,7 +249,7 @@
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -210,6 +276,72 @@
                                 <step>
                                     <type>22</type>
                                     <params>ibmdb2_bufferpool_bp_size_mb{bp_name=&quot;{#BP_NAME}&quot;}
+</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item>
+                                <key>prom_db2_exporter</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>bufferpool {#BP_NAME} total hit ratio</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>prom_db2_buf_total_hit[{#BP_NAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>22</type>
+                                    <params>ibmdb2_bufferpool_total_hit_ratio{bp_name=&quot;{#BP_NAME}&quot;}
 </params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
