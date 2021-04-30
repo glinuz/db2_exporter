@@ -1,6 +1,6 @@
 # IBM DB2 exporter
 
-A Prometheus exporter for IBM DB2.
+A Prometheus exporter for IBM DB2,with getting by ODBC
 
 ## Description
 
@@ -62,9 +62,10 @@ The following metrics are exposed currently by default-metrics.toml.
     ibmdb2_up 1
 ```
 
-## Build
+## Build (go <1.11 vendor mode)
 
-Use DB2 instance,like db2inst1, in your database server HOME directory.
+Use DB2 server or client instance ,like db2inst1, in your database server HOME directory.
+Need DB2 ODBC driver file.
 
 ```bash
 export IBM_DB_DIR=/home/db2inst1/sqllib
@@ -75,7 +76,7 @@ go build main.go
 
 ## Run
 
-Switch monitor buffpool on
+Switch DB2 server CFG monitor buffpool on
 
 ```bash
 db2 update monitor switches using bufferpool on
