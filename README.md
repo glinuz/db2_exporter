@@ -106,7 +106,7 @@ OR
 ./main -log.level debug -dsn "DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
 ```
 ## Windows 
-see issue
+see issue [#7](https://github.com/glinuz/db2_exporter/issues/7)
 
 ## Zabbix template
 
