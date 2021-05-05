@@ -1,6 +1,6 @@
 # IBM DB2 exporter
 
-A Prometheus exporter for IBM DB2,with getting by ODBC
+A Prometheus exporter for IBM DB2,with getting by ODBC.
 
 ## Description
 
@@ -61,11 +61,13 @@ The following metrics are exposed currently by default-metrics.toml.
     # TYPE ibmdb2_up gauge
     ibmdb2_up 1
 ```
-
-## Build (go <1.11 vendor mode)
+## Linux unix macOS
+### Build (go <1.11 vendor mode)
 
 Use DB2 server or client instance ,like db2inst1, in your database server HOME directory.
 Need DB2 ODBC driver file.
+
+
 
 ```bash
 export IBM_DB_DIR=/home/db2inst1/sqllib
@@ -74,7 +76,7 @@ export CGO_CFLAGS=-I$IBM_DB_DIR/include
 go build main.go
 ```
 
-## Run
+### Run
 
 Switch DB2 server CFG monitor buffpool on
 
@@ -103,14 +105,18 @@ OR
 ```bash
 ./main -log.level debug -dsn "DATABASE=sample; HOSTNAME=localhost; PORT=60000; PROTOCOL=TCPIP; UID=db2inst1; PWD=db2inst1;"
 ```
+## Windows 
+see issue
 
 ## Zabbix template
 
-In our case,it is worked with Prometheus and Zabbix.
+In our case,it is worked with Prometheus and Zabbix (v3.2).
 Import db2export_zabbix_templates.xml, and define Host macro {$URL} endpoint,e.g. <http://localhost:9161/metrics>
 
 ## Howto custerm metric
 
 Add your custerm metric ,database monitor SQL script in file: default-metrics.toml.
+
+
 
 ![DB2 export](https://github.com/glinuz/ibmdb2_exporter/blob/master/ibmdb2.png)
